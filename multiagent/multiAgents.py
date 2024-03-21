@@ -361,7 +361,7 @@ def betterEvaluationFunction(currentGameState: GameState):
     if all(scaredTime == 0 for scaredTime in scaredTimes):
         if capsules:
             min_capsule = min(manhattanDistance(capsule, pos_position) for capsule in capsules)
-            evaluateScore += 2.0/min_capsule
+            evaluateScore += 1.0/min_capsule
             
     return evaluateScore + gameScore
     
