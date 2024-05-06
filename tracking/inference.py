@@ -757,15 +757,13 @@ class ParticleFilter(InferenceModule):
         counter = Counter(self.particles)
         for state in counter.keys():
             # iii. Calculate the total weight for each state.
-            # (weight each Particle by $P(f_i|w_i)$)
+            # i. Calculate the weights of all particles (weight each Particle by $P(f_i|w_i)$)
             observationProb = self.getObservationProb(observation, pacManPosition, state, jailPosition)
             stateWeights[state] = stateWeights.get(state,0) + observationProb * counter[state]
             
         # Normalize and Resample or re-initialize if $\sum weight = 0$
-        # i. Calculate the weights of all particles as described above.
-        totalWeight = stateWeights.total()
-        
         # ii. If the sum of all weights across all states is 0, reinitialize all particles.
+        totalWeight = stateWeights.total()
         if totalWeight == 0:
             self.initializeUniformly(gameState)
         else:
